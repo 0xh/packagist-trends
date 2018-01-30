@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Input} from 'reactstrap';
-import axios from 'axios';
 
 class Search extends Component {
     constructor(props) {
@@ -38,22 +37,7 @@ class Search extends Component {
             return;
         }
 
-        const url = `https://packagist.org/packages/${this.state.value}/stats/all.json`;
-        axios.get(url)
-            .then((response) => {
-                const data = response.data;
-                let chartData = [];
-                for (let i in data.values) {
-                    chartData.push({
-                        name: data.labels[i],
-                        cake: data.values[i]
-                    });
-                }
-                this.props.setChartDate(chartData);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        this.props.handleSubmit(this.state.value);
     }
 }
 
