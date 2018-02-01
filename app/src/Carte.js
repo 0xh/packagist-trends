@@ -13,7 +13,7 @@ class Chart extends Component {
     });
 
     const line = keys.map((key) =>
-      <Line type="monotone" dataKey={key} stroke="#8884d8"/>
+      <Line type="monotone" key={key} dataKey={key} stroke="#8884d8"/>
     );
 
     return (
