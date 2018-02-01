@@ -33,12 +33,13 @@ class App extends Component {
               [value]: responseData.values[i]
             });
           }
-        } else {
-          for (let i in data) {
-            Object.assign(data[i], {[value]: responseData.values[i]});
-          }
+          this.setState({data: data});
+          return;
         }
 
+        for (let i in data) {
+          Object.assign(data[i], {[value]: responseData.values[i]});
+        }
         this.setState({data: data});
       })
       .catch((error) => {
