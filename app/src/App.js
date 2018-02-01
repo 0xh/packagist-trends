@@ -42,7 +42,7 @@ class App extends Component {
         this.setState({data: data});
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   }
 
