@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import moment from 'moment';
 import Chart from './Carte';
 import Search from './Search';
 
@@ -18,8 +19,8 @@ class App extends Component {
     axios.get(url, {
       params: {
         average: 'daily',
-        from: '2018-01-01',
-        to: '2018-01-31',
+        from: moment().subtract(6, 'months').format('YYYY-MM-DD'),
+        to: moment().format('YYYY-MM-DD'),
       }
     })
       .then((response) => {
