@@ -3,6 +3,8 @@ import axios from 'axios';
 import moment from 'moment';
 import Chart from './Carte';
 import Search from './Search';
+import Header from './Header';
+import Reboot from 'material-ui/Reboot';
 
 class App extends Component {
   constructor(props) {
@@ -51,6 +53,8 @@ class App extends Component {
   render() {
     return (
       <div>
+        <Reboot />
+        <Header />
         <Search handleSubmit={this.handleSubmit}/>
         <Chart data={this.state.data}/>
       </div>

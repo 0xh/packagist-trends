@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Input} from 'reactstrap';
+import TextField from 'material-ui/TextField';
 
 class Search extends Component {
   constructor(props) {
@@ -15,12 +15,13 @@ class Search extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <Input
-          type="text"
+        <TextField
           id="search"
-          placeholder="Please enter a packages..."
-          value={this.state.value}
           onChange={this.handleChange}
+          value={this.state.value}
+          placeholder="Please enter a packages..."
+          fullWidth
+          margin="normal"
         />
       </form>
     );
