@@ -48,7 +48,6 @@ class App extends Component {
         const responseData = response.data;
         let data = this.state.data;
         this.setState({
-          word: value,
           words: [...this.state.words, value]
         });
 
@@ -78,23 +77,30 @@ class App extends Component {
       return v !== word;
     });
 
-    let data = this.state.data.map((v) => {
-      let obj = Object.assign({}, v);
-      delete obj[word];
-      return obj;
-    });
+    let data = [];
+    let status = [];
 
-    if (Object.keys(data[0]).length === 1) {
-      data = [];
+    if (words.length !== 0) {
+      status = this.state.githubStatus.filter((v) => {
+        return v.name !== word;
+      });
+
+      data = this.state.data.map((v) => {
+        let obj = Object.assign({}, v);
+        delete obj[word];
+        return obj;
+      });
     }
 
     this.setState({
       words: words,
-      data: data
+      data: data,
+      githubStatus: status
     });
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
         <Reboot />
