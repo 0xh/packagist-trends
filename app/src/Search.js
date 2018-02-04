@@ -39,6 +39,7 @@ class Search extends Component {
     }
 
     this.props.handleSubmit(this.state.value);
+    this.setState({value: ''});
   }
 }
 
