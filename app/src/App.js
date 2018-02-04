@@ -4,16 +4,19 @@ import moment from 'moment';
 import Chart from './Carte';
 import Search from './Search';
 import Header from './Header';
+import Tag from './Tag';
 import Reboot from 'material-ui/Reboot';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
+      words: []
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleSubmit(value) {
@@ -28,6 +31,7 @@ class App extends Component {
       .then((response) => {
         const responseData = response.data;
         let data = this.state.data;
+        this.setState({words: [...this.state.words, value]});
 
         if (data.length === 0) {
           for (let i in responseData.values) {
@@ -50,12 +54,34 @@ class App extends Component {
       });
   }
 
+  handleDelete(word) {
+    const words = this.state.words.filter((v) => {
+      return v !== word;
+    });
+
+    let data = [...this.state.data].map((v) => {
+      let obj = Object.assign({}, v);
+      delete obj[word];
+      return obj;
+    });
+
+    if (Object.keys(data[0]).length === 1) {
+      data = [];
+    }
+
+    this.setState({
+      words: words,
+      data: data
+    });
+  }
+
   render() {
     return (
       <div>
         <Reboot />
         <Header />
         <Search handleSubmit={this.handleSubmit}/>
+        <Tag words={this.state.words} handleDelete={this.handleDelete}/>
         <Chart data={this.state.data}/>
       </div>
     );
