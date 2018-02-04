@@ -59,7 +59,7 @@ class App extends Component {
       return v !== word;
     });
 
-    let data = [...this.state.data].map((v) => {
+    let data = this.state.data.map((v) => {
       let obj = Object.assign({}, v);
       delete obj[word];
       return obj;
