@@ -1,5 +1,13 @@
 import React, {Component} from 'react';
-import {LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import Paper from 'material-ui/Paper';
+import {withStyles} from 'material-ui/styles';
+
+const styles = theme => ({
+  root: {
+    height: 400,
+  },
+});
 
 class Chart extends Component {
   color = [
@@ -26,19 +34,24 @@ class Chart extends Component {
     const line = keys.map((key, i) =>
       <Line type="monotone" key={key} dataKey={key} stroke={this.color[i]} dot={false}/>
     );
+    const {classes} = this.props;
 
     return (
-      <LineChart width={730} height={300} data={this.props.data}
-                 margin={{top: 5, right: 30, left: 20, bottom: 5}}>
-        <XAxis dataKey="name"/>
-        <YAxis/>
-        <CartesianGrid strokeDasharray="3 3"/>
-        <Tooltip/>
-        <Legend />
-        {line}
-      </LineChart>
+      <Paper className={classes.root}>
+        <ResponsiveContainer>
+          <LineChart height={400} data={this.props.data}
+                     margin={{top: 30, right: 30, left: 30, bottom: 30}}>
+            <XAxis dataKey="name" angle={-5}/>
+            <YAxis/>
+            <CartesianGrid strokeDasharray="3 3"/>
+            <Tooltip/>
+            <Legend />
+            {line}
+          </LineChart>
+        </ResponsiveContainer>
+      </Paper>
     );
   }
 }
 
-export default Chart;
+export default withStyles(styles)(Chart);
