@@ -8,7 +8,7 @@ class Header extends Component {
     return (
       <AppBar position="static" color="default">
         <Toolbar>
-          <Typography type="title" color="inherit">
+          <Typography variant="title" color="inherit">
             Packagist trends
           </Typography>
         </Toolbar>
