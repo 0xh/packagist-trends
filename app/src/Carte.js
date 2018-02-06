@@ -13,10 +13,9 @@ class Chart extends Component {
   color = [
     '#9C27B0',
     '#2196F3',
-    '#009688',
+    '#F44336',
     '#CDDC39',
     '#FF9800',
-    '#F44336',
     '#3F51B5',
     '#4CAF50',
   ];
@@ -32,7 +31,12 @@ class Chart extends Component {
     });
 
     const line = keys.map((key, i) =>
-      <Line type="monotone" key={key} dataKey={key} stroke={this.color[i]} dot={false}/>
+      <Line type="monotone"
+            key={key}
+            dataKey={key}
+            stroke={this.color[i]}
+            strokeWidth={2}
+            dot={false}/>
     );
     const {classes} = this.props;
 
@@ -40,7 +44,7 @@ class Chart extends Component {
       <Paper className={classes.root}>
         <ResponsiveContainer>
           <LineChart height={400} data={this.props.data}
-                     margin={{top: 30, right: 30, left: 30, bottom: 30}}>
+                     margin={{top: 30, right: 100, left: 30, bottom: 30}}>
             <XAxis dataKey="name" angle={-5}/>
             <YAxis/>
             <CartesianGrid strokeDasharray="3 3"/>
