@@ -21,7 +21,7 @@ class Github extends Component {
     return (
       <Paper className={classes.paper}>
         <Typography variant="title" color="inherit" align="center">
-          GitHub Status
+          GitHub
         </Typography>
         <Table>
           <TableHead>
@@ -36,7 +36,7 @@ class Github extends Component {
             {this.props.githubStatus.map((n, i) => {
               return (
                 <TableRow key={i}>
-                  <TableCell>{n.name}</TableCell>
+                  <TableCell><a href={n.url} target="_blank" rel="noopener">{n.name}</a></TableCell>
                   <TableCell numeric>{n.stars}</TableCell>
                   <TableCell numeric>{n.watchers}</TableCell>
                   <TableCell numeric>{n.forks}</TableCell>

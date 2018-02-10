@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import Paper from 'material-ui/Paper';
 import {withStyles} from 'material-ui/styles';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   root: {
@@ -42,9 +43,12 @@ class Chart extends Component {
 
     return (
       <Paper className={classes.root}>
+        <Typography variant="title" color="inherit" align="center">
+          Package Downloads
+        </Typography>
         <ResponsiveContainer>
           <LineChart height={400} data={this.props.data}
-                     margin={{top: 30, right: 100, left: 30, bottom: 30}}>
+                     margin={{top: 10, right: 100, left: 30, bottom: 30}}>
             <XAxis dataKey="name" angle={-5}/>
             <YAxis/>
             <CartesianGrid strokeDasharray="3 3"/>
