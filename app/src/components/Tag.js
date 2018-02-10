@@ -1,5 +1,12 @@
 import React, {Component} from 'react';
 import Chip from 'material-ui/Chip';
+import {withStyles} from 'material-ui/styles';
+
+const styles = theme => ({
+  chip: {
+    margin: 5,
+  },
+});
 
 class Tag extends Component {
   handleDelete = word => () => {
@@ -7,6 +14,8 @@ class Tag extends Component {
   };
 
   render() {
+    const {classes} = this.props;
+
     return (
       this.props.words.map((word, key) => {
         return (
@@ -14,6 +23,7 @@ class Tag extends Component {
             key={key}
             label={word}
             onDelete={this.handleDelete(word)}
+            className={classes.chip}
           />
         );
       })
@@ -21,4 +31,4 @@ class Tag extends Component {
   }
 }
 
-export default Tag;
+export default withStyles(styles)(Tag);
