@@ -49,7 +49,7 @@ class Chart extends Component {
         <ResponsiveContainer>
           <LineChart height={400} data={this.props.data}
                      margin={{top: 10, right: 100, left: 30, bottom: 30}}>
-            <XAxis dataKey="name" angle={-5}/>
+            <XAxis dataKey="name" angle={-5} hide/>
             <YAxis/>
             <CartesianGrid strokeDasharray="3 3"/>
             <Tooltip/>

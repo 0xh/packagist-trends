@@ -99,7 +99,11 @@ class Main extends Component {
 
   render() {
     return (
-      <main style={{padding: 20}}>
+      <main style={{
+        padding: 20,
+        paddingTop: 5,
+        flex: 1
+      }}>
         <Search handleSubmit={this.handleSubmit}/>
         <Tag words={this.state.words} handleDelete={this.handleDelete}/>
         <Chart data={this.state.data}/>
