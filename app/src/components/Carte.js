@@ -5,7 +5,7 @@ import {withStyles} from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
-  root: {
+  paper: {
     height: 400,
   },
 });
@@ -42,9 +42,9 @@ class Chart extends Component {
     const {classes} = this.props;
 
     return (
-      <Paper className={classes.root}>
+      <Paper className={classes.paper}>
         <Typography variant="title" color="inherit" align="center">
-          Package Downloads
+          Downloads
         </Typography>
         <ResponsiveContainer>
           <LineChart height={400} data={this.props.data}
