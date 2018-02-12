@@ -34,14 +34,25 @@ class Github extends Component {
           </TableHead>
           <TableBody>
             {this.props.githubStatus.map((n, i) => {
-              return (
-                <TableRow key={i}>
-                  <TableCell><a href={n.url} target="_blank" rel="noopener">{n.name}</a></TableCell>
-                  <TableCell numeric>{n.stars}</TableCell>
-                  <TableCell numeric>{n.watchers}</TableCell>
-                  <TableCell numeric>{n.forks}</TableCell>
-                </TableRow>
-              );
+              if (n.url.includes('https://github.com')) {
+                return (
+                  <TableRow key={i}>
+                    <TableCell><a href={n.url} target="_blank" rel="noopener">{n.name}</a></TableCell>
+                    <TableCell numeric>{n.stars}</TableCell>
+                    <TableCell numeric>{n.watchers}</TableCell>
+                    <TableCell numeric>{n.forks}</TableCell>
+                  </TableRow>
+                );
+              } else {
+                return (
+                  <TableRow key={i}>
+                    <TableCell>{n.name}</TableCell>
+                    <TableCell numeric>-</TableCell>
+                    <TableCell numeric>-</TableCell>
+                    <TableCell numeric>-</TableCell>
+                  </TableRow>
+                );
+              }
             })}
           </TableBody>
         </Table>

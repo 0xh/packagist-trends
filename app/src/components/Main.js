@@ -20,8 +20,12 @@ class Main extends Component {
   }
 
   handleSubmit(value) {
+    if (this.state.words.includes(value)) {
+      return;
+    }
+
     axios.get(`https://packagist.org/packages/${value}.json`)
-      .then((response) => {
+      .then(response => {
         const lib = response.data.package;
         this.setState({
           githubStatus: [...this.state.githubStatus, {
@@ -42,7 +46,7 @@ class Main extends Component {
         to: moment().format('YYYY-MM-DD'),
       }
     })
-      .then((response) => {
+      .then(response => {
         const responseData = response.data;
         let data = this.state.data;
         this.setState({
@@ -51,10 +55,10 @@ class Main extends Component {
 
         if (data.length === 0) {
           for (let i in responseData.values) {
-            data.push({
+            data = [...data, {
               name: responseData.labels[i],
               [value]: responseData.values[i]
-            });
+            }];
           }
           this.setState({data: data});
           return;
@@ -71,19 +75,15 @@ class Main extends Component {
   }
 
   handleDelete(word) {
-    const words = this.state.words.filter((v) => {
-      return v !== word;
-    });
+    const words = this.state.words.filter(v => v !== word);
 
     let data = [];
     let status = [];
 
     if (words.length !== 0) {
-      status = this.state.githubStatus.filter((v) => {
-        return v.name !== word;
-      });
+      status = this.state.githubStatus.filter(v => v.name !== word);
 
-      data = this.state.data.map((v) => {
+      data = this.state.data.map(v => {
         let obj = Object.assign({}, v);
         delete obj[word];
         return obj;
