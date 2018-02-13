@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import TextField from 'material-ui/TextField';
 
 class Search extends Component {
@@ -28,7 +28,7 @@ class Search extends Component {
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -39,7 +39,7 @@ class Search extends Component {
     }
 
     this.props.handleSubmit(this.state.value);
-    this.setState({value: ''});
+    this.setState({ value: '' });
   }
 }
 

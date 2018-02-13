@@ -1,12 +1,17 @@
-import React, {Component} from 'react';
-import Table, {TableBody, TableCell, TableHead, TableRow} from 'material-ui/Table';
+import React, { Component } from 'react';
+import Table, {
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+} from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   paper: {
-    marginTop: 10
+    marginTop: 10,
   },
 });
 
@@ -16,7 +21,7 @@ class Github extends Component {
       return null;
     }
 
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     return (
       <Paper className={classes.paper}>
@@ -26,7 +31,7 @@ class Github extends Component {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell></TableCell>
+              <TableCell />
               <TableCell numeric>Stars</TableCell>
               <TableCell numeric>Watcher</TableCell>
               <TableCell numeric>Forks</TableCell>
@@ -37,7 +42,11 @@ class Github extends Component {
               if (n.url.includes('https://github.com')) {
                 return (
                   <TableRow key={i}>
-                    <TableCell><a href={n.url} target="_blank" rel="noopener">{n.name}</a></TableCell>
+                    <TableCell>
+                      <a href={n.url} target="_blank" rel="noopener">
+                        {n.name}
+                      </a>
+                    </TableCell>
                     <TableCell numeric>{n.stars}</TableCell>
                     <TableCell numeric>{n.watchers}</TableCell>
                     <TableCell numeric>{n.forks}</TableCell>
@@ -57,7 +66,7 @@ class Github extends Component {
           </TableBody>
         </Table>
       </Paper>
-    )
+    );
   }
 }
 

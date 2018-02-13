@@ -1,7 +1,16 @@
-import React, {Component} from 'react';
-import {ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
+import React, { Component } from 'react';
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
 import Paper from 'material-ui/Paper';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
@@ -27,19 +36,21 @@ class Chart extends Component {
     }
 
     let keys = Object.keys(this.props.data[0]);
-    keys = keys.filter(function (v) {
+    keys = keys.filter(function(v) {
       return v !== 'name';
     });
 
-    const line = keys.map((key, i) =>
-      <Line type="monotone"
-            key={key}
-            dataKey={key}
-            stroke={this.color[i]}
-            strokeWidth={2}
-            dot={false}/>
-    );
-    const {classes} = this.props;
+    const line = keys.map((key, i) => (
+      <Line
+        type="monotone"
+        key={key}
+        dataKey={key}
+        stroke={this.color[i]}
+        strokeWidth={2}
+        dot={false}
+      />
+    ));
+    const { classes } = this.props;
 
     return (
       <Paper className={classes.paper}>
@@ -47,12 +58,15 @@ class Chart extends Component {
           Downloads
         </Typography>
         <ResponsiveContainer>
-          <LineChart height={400} data={this.props.data}
-                     margin={{top: 10, right: 30, left: 30, bottom: 30}}>
-            <XAxis dataKey="name" angle={-5} hide/>
-            <YAxis/>
-            <CartesianGrid strokeDasharray="3 3"/>
-            <Tooltip/>
+          <LineChart
+            height={400}
+            data={this.props.data}
+            margin={{ top: 10, right: 30, left: 30, bottom: 30 }}
+          >
+            <XAxis dataKey="name" angle={-5} hide />
+            <YAxis />
+            <CartesianGrid strokeDasharray="3 3" />
+            <Tooltip />
             <Legend />
             {line}
           </LineChart>

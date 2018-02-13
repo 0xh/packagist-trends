@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Chip from 'material-ui/Chip';
-import {withStyles} from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 const styles = theme => ({
   chip: {
@@ -14,20 +14,18 @@ class Tag extends Component {
   };
 
   render() {
-    const {classes} = this.props;
+    const { classes } = this.props;
 
-    return (
-      this.props.words.map((word, key) => {
-        return (
-          <Chip
-            key={key}
-            label={word}
-            onDelete={this.handleDelete(word)}
-            className={classes.chip}
-          />
-        );
-      })
-    )
+    return this.props.words.map((word, key) => {
+      return (
+        <Chip
+          key={key}
+          label={word}
+          onDelete={this.handleDelete(word)}
+          className={classes.chip}
+        />
+      );
+    });
   }
 }
 
