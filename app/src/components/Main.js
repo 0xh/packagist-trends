@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
 import queryString from 'query-string';
 import moment from 'moment';
@@ -23,24 +23,30 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const {q} = queryString.parse(nextProps.location.search, {arrayFormat: 'bracket'});
+    const { q } = queryString.parse(nextProps.location.search, {
+      arrayFormat: 'bracket',
+    });
 
-    for(let v of q) {
+    for (let v of q) {
       this.setGithubStats(v);
       this.setPackageStats(v);
     }
   }
+
   handleSubmit(value) {
     if (this.state.words.includes(value)) {
       return;
     }
 
-    const {location, history} = this.props;
-    const q = queryString.parse(location.search, {arrayFormat: 'bracket'}).q || [];
-    const query = queryString.stringify({q: [...q, value]}, {arrayFormat: 'bracket'});
+    const { location, history } = this.props;
+    const q =
+      queryString.parse(location.search, { arrayFormat: 'bracket' }).q || [];
+    const query = queryString.stringify(
+      { q: [...q, value] },
+      { arrayFormat: 'bracket' }
+    );
     history.push(`?${query}`);
   }
-
 
   setGithubStats(value) {
     axios.get(`https://packagist.org/packages/${value}.json`).then(response => {
@@ -62,15 +68,16 @@ class Main extends Component {
   }
 
   setPackageStats(value) {
-    axios.get(`https://packagist.org/packages/${value}/stats/all.json`, {
-      params: {
-        average: 'daily',
-        from: moment()
-          .subtract(6, 'months')
-          .format('YYYY-MM-DD'),
-        to: moment().format('YYYY-MM-DD'),
-      },
-    })
+    axios
+      .get(`https://packagist.org/packages/${value}/stats/all.json`, {
+        params: {
+          average: 'daily',
+          from: moment()
+            .subtract(6, 'months')
+            .format('YYYY-MM-DD'),
+          to: moment().format('YYYY-MM-DD'),
+        },
+      })
       .then(response => {
         const responseData = response.data;
         let data = this.state.data;
@@ -88,14 +95,14 @@ class Main extends Component {
               },
             ];
           }
-          this.setState({data: data});
+          this.setState({ data: data });
           return;
         }
 
         for (let i in data) {
-          Object.assign(data[i], {[value]: responseData.values[i]});
+          Object.assign(data[i], { [value]: responseData.values[i] });
         }
-        this.setState({data: data});
+        this.setState({ data: data });
       })
       .catch(error => {
         console.error(error);
@@ -134,10 +141,10 @@ class Main extends Component {
 
     return (
       <main style={style}>
-        <Search handleSubmit={this.handleSubmit}/>
-        <Tag words={this.state.words} handleDelete={this.handleDelete}/>
-        <Chart data={this.state.data}/>
-        <Github githubStatus={this.state.githubStatus}/>
+        <Search handleSubmit={this.handleSubmit} />
+        <Tag words={this.state.words} handleDelete={this.handleDelete} />
+        <Chart data={this.state.data} />
+        <Github githubStatus={this.state.githubStatus} />
       </main>
     );
   }
