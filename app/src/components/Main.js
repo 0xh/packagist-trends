@@ -18,14 +18,23 @@ class Main extends Component {
       githubStatus: [],
     };
 
+    this.process = this.process.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
     this.setGithubStats = this.setGithubStats.bind(this);
     this.setPackageStats = this.setPackageStats.bind(this);
   }
 
+  componentDidMount() {
+    this.process(this.props.location.search);
+  }
+
   componentWillReceiveProps(nextProps) {
-    let { q } = queryString.parse(nextProps.location.search, queryFormat);
+    this.process(nextProps.location.search);
+  }
+
+  process(search) {
+    let { q } = queryString.parse(search, queryFormat);
     q = Array.from(new Set(q));
 
     for (let v of q) {
@@ -36,6 +45,7 @@ class Main extends Component {
       this.setGithubStats(v);
       this.setPackageStats(v);
     }
+
   }
 
   handleSubmit(value) {
