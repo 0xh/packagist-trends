@@ -61,7 +61,7 @@ class Chart extends Component {
           <LineChart
             height={400}
             data={this.props.data}
-            margin={{ top: 10, right: 30, left: 30, bottom: 30 }}
+            margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
           >
             <XAxis dataKey="name" angle={-5} hide />
             <YAxis />

@@ -13,6 +13,9 @@ const styles = theme => ({
   paper: {
     marginTop: 10,
   },
+  tableWrapper: {
+    overflowX: 'auto',
+  },
 });
 
 class Github extends Component {
@@ -28,43 +31,45 @@ class Github extends Component {
         <Typography variant="title" color="inherit" align="center">
           GitHub
         </Typography>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell numeric>Stars</TableCell>
-              <TableCell numeric>Watcher</TableCell>
-              <TableCell numeric>Forks</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.props.githubStatus.map((n, i) => {
-              if (n.url.includes('https://github.com')) {
-                return (
-                  <TableRow key={i}>
-                    <TableCell>
-                      <a href={n.url} target="_blank" rel="noopener">
-                        {n.name}
-                      </a>
-                    </TableCell>
-                    <TableCell numeric>{n.stars}</TableCell>
-                    <TableCell numeric>{n.watchers}</TableCell>
-                    <TableCell numeric>{n.forks}</TableCell>
-                  </TableRow>
-                );
-              } else {
-                return (
-                  <TableRow key={i}>
-                    <TableCell>{n.name}</TableCell>
-                    <TableCell numeric>-</TableCell>
-                    <TableCell numeric>-</TableCell>
-                    <TableCell numeric>-</TableCell>
-                  </TableRow>
-                );
-              }
-            })}
-          </TableBody>
-        </Table>
+        <div className={classes.tableWrapper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell numeric>Stars</TableCell>
+                <TableCell numeric>Watcher</TableCell>
+                <TableCell numeric>Forks</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.props.githubStatus.map((n, i) => {
+                if (n.url.includes('https://github.com')) {
+                  return (
+                    <TableRow key={i}>
+                      <TableCell>
+                        <a href={n.url} target="_blank" rel="noopener">
+                          {n.name}
+                        </a>
+                      </TableCell>
+                      <TableCell numeric>{n.stars}</TableCell>
+                      <TableCell numeric>{n.watchers}</TableCell>
+                      <TableCell numeric>{n.forks}</TableCell>
+                    </TableRow>
+                  );
+                } else {
+                  return (
+                    <TableRow key={i}>
+                      <TableCell>{n.name}</TableCell>
+                      <TableCell numeric>-</TableCell>
+                      <TableCell numeric>-</TableCell>
+                      <TableCell numeric>-</TableCell>
+                    </TableRow>
+                  );
+                }
+              })}
+            </TableBody>
+          </Table>
+        </div>
       </Paper>
     );
   }

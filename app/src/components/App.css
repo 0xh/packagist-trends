@@ -1,0 +1,19 @@
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Main {
+  padding: 5px 20px 20px;
+  flex: 1px;
+}
+
+.Footer {
+  height: 30px;
+  border-top: solid 1px #bdbdbd;
+}
+
+.TitleLink {
+  color: black;
+}

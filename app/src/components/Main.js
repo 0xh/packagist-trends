@@ -6,6 +6,7 @@ import Chart from './Carte';
 import Search from './Search';
 import Tag from './Tag';
 import Github from './Github';
+import './App.css';
 
 const queryFormat = { arrayFormat: 'bracket' };
 const regPackage = /^([\w-]+)\/([\w-]+)$/;
@@ -157,14 +158,8 @@ class Main extends Component {
   }
 
   render() {
-    const style = {
-      padding: 20,
-      paddingTop: 5,
-      flex: 1,
-    };
-
     return (
-      <main style={style}>
+      <main className="Main">
         <Search handleSubmit={this.handleSubmit} />
         <Tag words={this.state.words} handleDelete={this.handleDelete} />
         <Chart data={this.state.data} />

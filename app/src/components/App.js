@@ -4,15 +4,10 @@ import Header from './Header';
 import Footer from './Footer';
 import Reboot from 'material-ui/Reboot';
 import { Route } from 'react-router-dom';
-
-const style = {
-  display: 'flex',
-  minHeight: '100vh',
-  flexDirection: 'column',
-};
+import './App.css';
 
 const App = () => (
-  <div style={style}>
+  <div className="App">
     <Reboot />
     <Header />
     <Route path="/" component={Main} />

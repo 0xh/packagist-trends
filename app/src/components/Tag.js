@@ -5,6 +5,7 @@ import { withStyles } from 'material-ui/styles';
 const styles = theme => ({
   chip: {
     margin: 5,
+    marginBottom: 10,
   },
 });
 
