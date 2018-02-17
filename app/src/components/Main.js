@@ -8,6 +8,7 @@ import Tag from './Tag';
 import Github from './Github';
 
 const queryFormat = { arrayFormat: 'bracket' };
+const regPackage = /^([\w-]+)\/([\w-]+)$/;
 
 class Main extends Component {
   constructor(props) {
@@ -38,18 +39,17 @@ class Main extends Component {
     q = Array.from(new Set(q));
 
     for (let v of q) {
-      if (this.state.words.includes(v)) {
+      if (!regPackage.test(v) || this.state.words.includes(v)) {
         continue;
       }
 
       this.setGithubStats(v);
       this.setPackageStats(v);
     }
-
   }
 
   handleSubmit(value) {
-    if (this.state.words.includes(value)) {
+    if (!regPackage.test(value) || this.state.words.includes(value)) {
       return;
     }
 
@@ -59,23 +59,36 @@ class Main extends Component {
     history.push(`?${query}`);
   }
 
+  deleteQuery(value) {
+    const { location, history } = this.props;
+    let { q } = queryString.parse(location.search, queryFormat);
+    q = q.filter(v => v !== value);
+    const query = queryString.stringify({ q: q }, queryFormat);
+    history.push(`?${query}`);
+  }
+
   setGithubStats(value) {
-    axios.get(`https://packagist.org/packages/${value}.json`).then(response => {
-      const lib = response.data.package;
-      this.setState({
-        githubStatus: [
-          ...this.state.githubStatus,
-          {
-            name: value,
-            forks: lib.github_forks,
-            issues: lib.github_open_issues,
-            stars: lib.github_stars,
-            watchers: lib.github_watchers,
-            url: lib.repository,
-          },
-        ],
+    axios
+      .get(`https://packagist.org/packages/${value}.json`)
+      .then(response => {
+        const lib = response.data.package;
+        this.setState({
+          githubStatus: [
+            ...this.state.githubStatus,
+            {
+              name: value,
+              forks: lib.github_forks,
+              issues: lib.github_open_issues,
+              stars: lib.github_stars,
+              watchers: lib.github_watchers,
+              url: lib.repository,
+            },
+          ],
+        });
+      })
+      .catch(() => {
+        this.deleteQuery(value);
       });
-    });
   }
 
   setPackageStats(value) {
@@ -115,19 +128,13 @@ class Main extends Component {
         }
         this.setState({ data: data });
       })
-      .catch(error => {
-        console.error(error);
-      });
+      .catch(error => {});
   }
 
   handleDelete(word) {
-    const { location, history } = this.props;
-    let {q} = queryString.parse(location.search, queryFormat);
-    q = q.filter(v => v !== word);
-    const query = queryString.stringify({ q: q }, queryFormat);
-    history.push(`?${query}`);
+    this.deleteQuery(word);
 
-    const {words, githubStatus, data} = this.state;
+    const { words, githubStatus, data } = this.state;
 
     let newData = [];
     let newGithubStatus = [];
