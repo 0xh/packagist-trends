@@ -7,6 +7,8 @@ import Search from './Search';
 import Tag from './Tag';
 import Github from './Github';
 
+const queryFormat = { arrayFormat: 'bracket' };
+
 class Main extends Component {
   constructor(props) {
     super(props);
@@ -23,9 +25,7 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { q } = queryString.parse(nextProps.location.search, {
-      arrayFormat: 'bracket',
-    });
+    const { q } = queryString.parse(nextProps.location.search, queryFormat);
 
     for (let v of q) {
       this.setGithubStats(v);
@@ -39,12 +39,8 @@ class Main extends Component {
     }
 
     const { location, history } = this.props;
-    const q =
-      queryString.parse(location.search, { arrayFormat: 'bracket' }).q || [];
-    const query = queryString.stringify(
-      { q: [...q, value] },
-      { arrayFormat: 'bracket' }
-    );
+    const q = queryString.parse(location.search, queryFormat).q || [];
+    const query = queryString.stringify({ q: [...q, value] }, queryFormat);
     history.push(`?${query}`);
   }
 
