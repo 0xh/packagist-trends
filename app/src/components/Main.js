@@ -25,9 +25,14 @@ class Main extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { q } = queryString.parse(nextProps.location.search, queryFormat);
+    let { q } = queryString.parse(nextProps.location.search, queryFormat);
+    q = Array.from(new Set(q));
 
     for (let v of q) {
+      if (this.state.words.includes(v)) {
+        continue;
+      }
+
       this.setGithubStats(v);
       this.setPackageStats(v);
     }
@@ -106,15 +111,21 @@ class Main extends Component {
   }
 
   handleDelete(word) {
-    const words = this.state.words.filter(v => v !== word);
+    const { location, history } = this.props;
+    let {q} = queryString.parse(location.search, queryFormat);
+    q = q.filter(v => v !== word);
+    const query = queryString.stringify({ q: q }, queryFormat);
+    history.push(`?${query}`);
 
-    let data = [];
-    let status = [];
+    const {words, githubStatus, data} = this.state;
 
-    if (words.length !== 0) {
-      status = this.state.githubStatus.filter(v => v.name !== word);
+    let newData = [];
+    let newGithubStatus = [];
+    const newWords = words.filter(v => v !== word);
 
-      data = this.state.data.map(v => {
+    if (newWords.length) {
+      newGithubStatus = githubStatus.filter(v => v.name !== word);
+      newData = data.map(v => {
         let obj = Object.assign({}, v);
         delete obj[word];
         return obj;
@@ -122,9 +133,9 @@ class Main extends Component {
     }
 
     this.setState({
-      words: words,
-      data: data,
-      githubStatus: status,
+      words: newWords,
+      data: newData,
+      githubStatus: newGithubStatus,
     });
   }
 
