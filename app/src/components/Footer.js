@@ -7,7 +7,8 @@ class Footer extends Component {
     return (
       <footer className="Footer">
         <Typography align="center">
-          Made by <a href="https://github.com/mosaxiv">mosaxiv</a>
+          Made by <a href="https://github.com/mosaxiv">mosaxiv</a>.
+          Thanks for <a href="https://packagist.org/">Packagist</a>.
         </Typography>
       </footer>
     );

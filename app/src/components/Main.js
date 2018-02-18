@@ -6,6 +6,7 @@ import Chart from './Carte';
 import Search from './Search';
 import Tag from './Tag';
 import Github from './Github';
+import Message from './Message';
 import './App.css';
 
 const queryFormat = { arrayFormat: 'bracket' };
@@ -98,7 +99,7 @@ class Main extends Component {
         params: {
           average: 'daily',
           from: moment()
-            .subtract(6, 'months')
+            .subtract(3, 'months')
             .format('YYYY-MM-DD'),
           to: moment().format('YYYY-MM-DD'),
         },
@@ -161,6 +162,7 @@ class Main extends Component {
     return (
       <main className="Main">
         <Search handleSubmit={this.handleSubmit} />
+        {this.state.words.length === 0 ? <Message /> : null}
         <Tag words={this.state.words} handleDelete={this.handleDelete} />
         <Chart data={this.state.data} />
         <Github githubStatus={this.state.githubStatus} />
