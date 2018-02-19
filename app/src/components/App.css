@@ -10,8 +10,13 @@
 }
 
 .Footer {
-  height: 30px;
+  height: 70px;
   border-top: solid 1px #bdbdbd;
+}
+
+.GithubButton {
+  text-align: center;
+  margin-top: 10px;
 }
 
 .Title-link {
