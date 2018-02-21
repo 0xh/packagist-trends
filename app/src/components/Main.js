@@ -101,7 +101,9 @@ class Main extends Component {
           from: moment()
             .subtract(3, 'months')
             .format('YYYY-MM-DD'),
-          to: moment().format('YYYY-MM-DD'),
+          to: moment()
+            .subtract(1, 'days')
+            .format('YYYY-MM-DD'),
         },
       })
       .then(response => {
