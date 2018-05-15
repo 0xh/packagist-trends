@@ -31,13 +31,22 @@ class Chart extends Component {
   ];
 
   render() {
-    if (this.props.data.length === 0) {
+    const { classes, data } = this.props;
+
+    if (data.length === 0) {
       return null;
     }
 
-    let keys = Object.keys(this.props.data[0]);
+    let keys = Object.keys(data[0]);
     keys = keys.filter(function(v) {
       return v !== 'name';
+    });
+
+    const chartData = data.map(v => {
+      keys.forEach(key => {
+        v[key] = Number(v[key]);
+      });
+      return v;
     });
 
     const line = keys.map((key, i) => (
@@ -50,7 +59,6 @@ class Chart extends Component {
         dot={false}
       />
     ));
-    const { classes } = this.props;
 
     return (
       <Paper className={classes.paper}>
@@ -60,7 +68,7 @@ class Chart extends Component {
         <ResponsiveContainer>
           <LineChart
             height={400}
-            data={this.props.data}
+            data={chartData}
             margin={{ top: 10, right: 30, left: 10, bottom: 30 }}
           >
             <XAxis dataKey="name" angle={-5} hide />
